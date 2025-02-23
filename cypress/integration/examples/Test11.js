@@ -1,13 +1,19 @@
 describe("End to End ecommerce Test", () => {
-  it("Submit Order", () => {
+  before(function () {
+    //runs once before all tests in the block
+    cy.fixture("example").then(function (data) {
+      this.data = data;
+    });
+  });
+  it("Submit Order", function () {
     cy.visit("https://rahulshettyacademy.com/loginpagePractise/#");
-    cy.get("#username").type("rahulshettyacademy");
-    cy.get("#password").type("learning");
+    cy.get("#username").type(this.data.username);
+    cy.get("#password").type(this.data.password);
     cy.contains("Sign In").click();
     cy.contains("Shop Name").should("be.visible");
     cy.get("app-card").should("have.length", "4");
 
-    const productName = "Nokia Edge";
+    const productName = this.data.productName;
     cy.get("app-card")
       .filter(`:contains("${productName}")`)
       .then(($element) => {
