@@ -9,7 +9,8 @@ describe("End to End ecommerce Test", () => {
     });
   });
   it("Submit Order", function () {
-    this.homePage.goTo("https://rahulshettyacademy.com/loginpagePractise/#");
+    cy.visit(Cypress.env("url") + "/loginpagePractise/#");
+    //this.homePage.goTo("https://rahulshettyacademy.com/loginpagePractise/#");
     const productPage = this.homePage.login(
       this.data.username,
       this.data.password
@@ -27,21 +28,5 @@ describe("End to End ecommerce Test", () => {
     const confirmationPage = cartPage.chechoutItems();
     confirmationPage.submitFormDetails();
     confirmationPage.getAlertMessage().should("contain", "Success");
-    //cy.get("#navbarResponsive > .navbar-nav > .nav-item > .nav-link").click();
-
-    /*let sum = 0;
-    cy.get("tr td:nth-child(4) strong")
-      .each(($el) => {
-        const amount = Number($el.text().split(" ")[1].trim());
-        sum = sum + amount;
-      })
-      .then(function () {
-        expect(sum).to.be.lessThan(200000);
-      }); */
-    //cy.contains("button", "Checkout").click();
-    //cy.get("#country").type("India");
-    //cy.get(".suggestions > ul > li > a", { timeout: 10000 }).click();
-    //cy.get(".ng-untouched > .btn").click();
-    //cy.get(".alert-success").should("contain", "Success");
   });
 });
